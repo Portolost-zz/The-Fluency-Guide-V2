@@ -1,3 +1,4 @@
+//Vetor de objetos com as perguntas;
 let perguntas = [{
         pergunta: "My city is (old) _______ than yours",
         q1: 'Order',
@@ -143,7 +144,7 @@ let perguntas = [{
         correta: 4,
     }
 ];
-
+//Elementos do quiz;
 let pergunta = document.querySelector('#question');
 let alternativas = Array.from(document.querySelectorAll('.choice-text'));
 let progresso = document.querySelector('#progressText');
@@ -159,38 +160,15 @@ let questoesDisponiveis = []
 let pontos = 100;
 let numPerguntas = 18;
 
+//Função que inica o quiz
 comecarQuiz = () => {
     cont = 0;
     pontuacao = 0;
-    questoesDisponiveis = [...perguntas];
+    questoesDisponiveis = [...perguntas];//Vetor com as perguntas
     proximaPergunta();
 }
 
-proximaPergunta = () => {
-    if (questoesDisponiveis.length === 0 || cont > numPerguntas) {
-        localStorage.setItem('recordeRecente', pontuacao);
-
-        return window.location.assign('pagfinal.html');
-    }
-
-    cont++;
-    progresso.innerText = `Pergunta ${cont} de ${numPerguntas}`;
-    barraDeProgressoFimEl.style.width = `${(cont / numPerguntas) * 100}%`;
-
-    let indice = Math.floor(Math.random() * questoesDisponiveis.length);
-    perguntaAtual = questoesDisponiveis[indice];
-    pergunta.innerText = perguntaAtual.pergunta;
-
-    alternativas.forEach(alternativa => {
-        let num = alternativa.dataset['number'];
-        alternativa.innerText = perguntaAtual['q' + num];
-    });
-
-    questoesDisponiveis.splice(indice, 1);
-
-    certaResposta = true;
-}
-
+//For que alcança todas alternativas do vetor alternativas
 alternativas.forEach(alternativa => {
     alternativa.addEventListener('click', e => {
         if (!certaResposta) return;
@@ -214,6 +192,33 @@ alternativas.forEach(alternativa => {
         }, 1000)
     });
 });
+
+//Função que leva a próxima pergunta
+proximaPergunta = () => {
+    if (questoesDisponiveis.length === 0 || cont > numPerguntas) {
+        localStorage.setItem('recordeRecente', pontuacao);
+
+        return window.location.assign('pagfinal.html');
+    }
+    //Atualiza o contator
+    cont++;
+    progresso.innerText = `Pergunta ${cont} de ${numPerguntas}`;
+    barraDeProgressoFimEl.style.width = `${(cont / numPerguntas) * 100}%`;
+
+    //Escolhe uma questão aleatória;
+    let indice = Math.floor(Math.random() * questoesDisponiveis.length);
+    perguntaAtual = questoesDisponiveis[indice];
+    pergunta.innerText = perguntaAtual.pergunta;
+
+    alternativas.forEach(alternativa => {
+        let num = alternativa.dataset['number'];
+        alternativa.innerText = perguntaAtual['q' + num];
+    });
+
+    questoesDisponiveis.splice(indice, 1);
+
+    certaResposta = true;
+}
 
 aumentarPontuacao = num => {
     pontuacao += num;
