@@ -1,15 +1,3 @@
-let pergunta = document.querySelector('#question');
-let alternativas = Array.from(document.querySelectorAll('.choice-text'));
-let progresso = document.querySelector('#progressText');
-let pontuacaoEl = document.querySelector('#score');
-let barraDeProgressoFimEl = document.querySelector('#progressBarFull');
-
-let perguntaAtual = {}
-let certaResposta = true;
-let pontuacao = 0;
-let cont = 0;
-let questoesDisponiveis = []
-
 let perguntas = [{
         pergunta: "My city is (old) _______ than yours",
         q1: 'Order',
@@ -156,6 +144,18 @@ let perguntas = [{
     }
 ];
 
+let pergunta = document.querySelector('#question');
+let alternativas = Array.from(document.querySelectorAll('.choice-text'));
+let progresso = document.querySelector('#progressText');
+let pontuacaoEl = document.querySelector('#score');
+let barraDeProgressoFimEl = document.querySelector('#progressBarFull');
+
+let perguntaAtual = {}
+let certaResposta = true;
+let pontuacao = 0;
+let cont = 0;
+let questoesDisponiveis = []
+
 let pontos = 100;
 let numPerguntas = 18;
 
@@ -168,7 +168,7 @@ comecarQuiz = () => {
 
 proximaPergunta = () => {
     if (questoesDisponiveis.length === 0 || cont > numPerguntas) {
-        localStorage.setItem('mostRecentScore', pontuacao);
+        localStorage.setItem('recordeRecente', pontuacao);
 
         return window.location.assign('pagfinal.html');
     }

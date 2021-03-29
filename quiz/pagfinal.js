@@ -1,11 +1,4 @@
-let botPontuacao = document.querySelector('#saveScoreBtn');
-let pontuacaoFinalEl = document.querySelector('#finalScore');
-let pontuacaMaisRecenteEl = localStorage.getItem('mostRecentScore');
-
-let recordes = JSON.parse(localStorage.getItem('recordes')) || [];
-
-pontuacaoFinalEl.innerText = pontuacaMaisRecenteEl;
-
+//Salva o recorde no Local Storage;
 salvarRecorde = e => {
     e.preventDefault();
 
@@ -15,7 +8,7 @@ salvarRecorde = e => {
 
     recordes.push(pontuacao);
 
-    highScores.sort((a, b) => {
+    recordes.sort((a, b) => {
         return b.pontuacao - a.pontuacao;
     })
 
@@ -24,3 +17,12 @@ salvarRecorde = e => {
     localStorage.setItem('recordes', JSON.stringify(recordes));
     window.location.assign('/');
 }
+//Variaveis da pontuação
+let botPontuacao = document.querySelector('#saveScoreBtn');
+let pontuacaoFinalEl = document.querySelector('#finalScore');
+let pontuacaMaisRecenteEl = localStorage.getItem('recordeRecente');
+
+//Pega a pontuação mais recente do local storage
+let recordes = JSON.parse(localStorage.getItem('recordes')) || [];
+
+pontuacaoFinalEl.innerText = pontuacaMaisRecenteEl;
