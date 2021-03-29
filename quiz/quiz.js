@@ -177,16 +177,16 @@ proximaPergunta = () => {
     progresso.innerText = `Pergunta ${cont} de ${numPerguntas}`;
     barraDeProgressoFimEl.style.width = `${(cont / numPerguntas) * 100}%`;
 
-    const questionsIndex = Math.floor(Math.random() * questoesDisponiveis.length);
-    perguntaAtual = questoesDisponiveis[questionsIndex];
+    let indice = Math.floor(Math.random() * questoesDisponiveis.length);
+    perguntaAtual = questoesDisponiveis[indice];
     pergunta.innerText = perguntaAtual.pergunta;
 
     alternativas.forEach(alternativa => {
-        let number = alternativa.dataset['number'];
-        alternativa.innerText = perguntaAtual['q' + number];
+        let num = alternativa.dataset['number'];
+        alternativa.innerText = perguntaAtual['q' + num];
     });
 
-    questoesDisponiveis.splice(questionsIndex, 1);
+    questoesDisponiveis.splice(indice, 1);
 
     certaResposta = true;
 }
@@ -196,26 +196,26 @@ alternativas.forEach(alternativa => {
         if (!certaResposta) return;
 
         certaResposta = false;
-        const selectedChoice = e.target;
-        const selectedAnswer = selectedChoice.dataset['number'];
+        let alternativaSelecionada = e.target;
+        let respostaSelecionada = alternativaSelecionada.dataset['number'];
 
-        let classToApply = selectedAnswer == perguntaAtual.correta ? 'correct' : 'incorrect';
+        let novaClasse = respostaSelecionada == perguntaAtual.correta ? 'correct' : 'incorrect';
 
-        if (classToApply === 'correct') {
-            incrementScore(pontos);
+        if (novaClasse === 'correct') {
+            aumentarPontuacao(pontos);
         }
 
-        selectedChoice.parentElement.classList.add(classToApply);
+        alternativaSelecionada.parentElement.classList.add(novaClasse);
 
         setTimeout(() => {
-            selectedChoice.parentElement.classList.remove(classToApply);
+            alternativaSelecionada.parentElement.classList.remove(novaClasse);
             proximaPergunta();
 
         }, 1000)
     });
 });
 
-incrementScore = num => {
+aumentarPontuacao = num => {
     pontuacao += num;
     pontuacaoEl.innerText = pontuacao;
 }
