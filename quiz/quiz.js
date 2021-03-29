@@ -195,6 +195,7 @@ alternativas.forEach(alternativa => {
 
 //Função que leva a próxima pergunta
 proximaPergunta = () => {
+    //Se o contador for maior que o número de perguntas ele encerra o questionário indo pra página inical e colocando a pontuação no local storage
     if (questoesDisponiveis.length === 0 || cont > numPerguntas) {
         localStorage.setItem('recordeRecente', pontuacao);
 
